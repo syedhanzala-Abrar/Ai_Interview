@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Interview Mirror — Practice. Reflect. Improve.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --obsidian:#14161A;
+    --panel:#1C2026;
+    --panel-light:#262B33;
+    --hairline:#33394300;
+    --platinum:#E7E9ED;
+    --steel:#8B93A2;
+    --steel-dim:#5C636F;
+    --amber:#E8A33D;
+    --amber-dim:#9C6C26;
+    --mirror-blue:#6E92E8;
+    --mirror-blue-dim:#3C4D80;
+    --max:1180px;
+  }
+ 
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--obsidian);
+    color:var(--platinum);
+    font-family:'Inter',sans-serif;
+    font-size:16px;
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  ::selection{background:var(--amber);color:var(--obsidian);}
+  a{color:inherit;text-decoration:none;}
+ 
+  h1,h2,h3,h4{
+    font-family:'Fraunces',serif;
+    font-weight:600;
+    letter-spacing:-0.01em;
+    color:var(--platinum);
+  }
+ 
+  .mono{
+    font-family:'JetBrains Mono',monospace;
+    font-size:0.72rem;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+  }
+ 
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 28px;}
+  section{position:relative;}
+ 
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
+  }
+ 
+  /* ---------- NAV ---------- */
+  header{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    backdrop-filter:blur(14px) saturate(140%);
+    background:rgba(20,22,26,0.72);
+    border-bottom:1px solid rgba(255,255,255,0.06);
+  }
+  nav{
+    max-width:var(--max); margin:0 auto; padding:18px 28px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .logo{display:flex; align-items:center; gap:10px; font-family:'Fraunces',serif; font-weight:600; font-size:1.05rem;}
+  .logo-mark{
+    width:26px;height:26px;border-radius:50%;
+    background:linear-gradient(160deg, var(--amber) 0 50%, var(--mirror-blue) 50% 100%);
+    flex-shrink:0;
+  }
+  .nav-links{display:flex; gap:34px; align-items:center;}
+  .nav-links a{
+    font-size:0.88rem; color:var(--steel); transition:color .25s ease; position:relative;
+  }
+  .nav-links a:hover{color:var(--platinum);}
+  .nav-cta{
+    font-size:0.85rem; font-weight:600; padding:10px 20px; border-radius:100px;
+    background:var(--platinum); color:var(--obsidian) !important;
+    transition:transform .25s ease, background .25s ease;
+  }
+  .nav-cta:hover{transform:translateY(-2px); background:var(--amber);}
+  .nav-toggle{display:none; flex-direction:column; gap:5px; cursor:pointer; background:none; border:none; padding:6px;}
+  .nav-toggle span{width:22px; height:2px; background:var(--platinum); display:block;}
+  .mobile-menu{
+    display:none; flex-direction:column; gap:18px; padding:22px 28px 28px;
+    background:var(--obsidian); border-top:1px solid rgba(255,255,255,0.06);
+  }
+  .mobile-menu a{color:var(--steel); font-size:0.95rem;}
+  .mobile-menu.open{display:flex;}
+ 
+  @media (max-width:860px){
+    .nav-links{display:none;}
+    .nav-toggle{display:flex;}
+  }
+ 
+  /* ---------- HERO / MIRROR SIGNATURE ---------- */
+  .hero{
+    padding:168px 0 0;
+    display:flex; flex-direction:column; align-items:center;
+    text-align:center;
+  }
+  .eyebrow{
+    color:var(--steel); margin-bottom:22px; display:inline-flex; align-items:center; gap:10px;
+  }
+  .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--amber);}
+ 
+  .hero h1{
+    font-size:clamp(2.4rem, 6vw, 4.6rem);
+    line-height:1.04;
+    max-width:880px;
+    font-weight:600;
+  }
+  .hero h1 em{
+    font-style:italic; font-weight:400; color:var(--amber);
+  }
+  .hero p.sub{
+    margin-top:26px; max-width:560px; color:var(--steel); font-size:1.08rem;
+  }
+  .hero-ctas{
+    margin-top:36px; display:flex; gap:14px; flex-wrap:wrap; justify-content:center;
+  }
+  .btn{
+    font-size:0.92rem; font-weight:600; padding:14px 28px; border-radius:100px;
+    display:inline-flex; align-items:center; gap:8px; transition:all .25s ease;
+    border:1px solid transparent;
+  }
+  .btn-primary{background:var(--amber); color:#1A1304;}
+  .btn-primary:hover{transform:translateY(-2px); box-shadow:0 12px 30px -10px rgba(232,163,61,0.5);}
+  .btn-ghost{border:1px solid rgba(255,255,255,0.18); color:var(--platinum);}
+  .btn-ghost:hover{background:rgba(255,255,255,0.06);}
+ 
+  /* The Mirror Line — signature element */
+  .mirror-stage{
+    margin-top:78px; width:100%; max-width:920px; position:relative; padding:0 28px 0;
+  }
+  .mirror-glass{
+    position:relative; border-radius:22px; overflow:hidden;
+    background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0));
+    border:1px solid rgba(255,255,255,0.08);
+  }
+  .mirror-top, .mirror-bottom{
+    padding:38px 36px; display:flex; flex-direction:column; gap:14px;
+  }
+  .mirror-top{align-items:flex-start; text-align:left;}
+  .speak-line{
+    font-family:'Fraunces',serif; font-size:clamp(1.1rem,2.4vw,1.55rem); color:var(--platinum); font-weight:500;
+    opacity:0; transform:translateY(8px);
+    animation:typeReveal 0.6s ease forwards;
+    animation-delay:0.3s;
+  }
+  .speak-line .cursor-tag{
+    display:inline-block; margin-left:10px; font-family:'JetBrains Mono',monospace; font-size:0.65rem;
+    color:var(--steel-dim); vertical-align:middle; letter-spacing:0.1em;
+  }
+  .mirror-divider{
+    position:relative; height:1px; background:linear-gradient(90deg, transparent, rgba(232,163,61,0.5) 20%, rgba(110,146,232,0.5) 80%, transparent);
+  }
+  .mirror-divider::after{
+    content:''; position:absolute; left:50%; top:-3px; transform:translateX(-50%);
+    width:7px;height:7px;border-radius:50%; background:var(--obsidian); border:2px solid var(--amber);
+  }
+  .mirror-bottom{
+    background:rgba(110,146,232,0.04);
+    align-items:flex-start; text-align:left;
+  }
+  .reflect-line{
+    font-family:'Fraunces',serif; font-style:italic; font-size:clamp(1.1rem,2.4vw,1.55rem); color:var(--mirror-blue);
+    transform:scaleY(-1); opacity:0.85; filter:blur(0.2px);
+    -webkit-mask-image:linear-gradient(to top, rgba(0,0,0,0.05), rgba(0,0,0,0.85));
+    mask-image:linear-gradient(to top, rgba(0,0,0,0.05), rgba(0,0,0,0.85));
+  }
+  .tags-row{display:flex; gap:10px; margin-top:6px; flex-wrap:wrap;}
+  .tag{
+    font-family:'JetBrains Mono',monospace; font-size:0.68rem; letter-spacing:0.06em;
+    padding:6px 12px; border-radius:100px; border:1px solid rgba(110,146,232,0.35);
+    color:var(--mirror-blue); background:rgba(110,146,232,0.08);
+  }
+  @keyframes typeReveal{ to{opacity:1; transform:translateY(0);} }
+ 
+  /* ---------- SECTION HEADERS ---------- */
+  .sec-head{max-width:640px; margin-bottom:54px;}
+  .sec-head .mono{color:var(--amber); display:block; margin-bottom:16px;}
+  .sec-head h2{font-size:clamp(1.7rem,3.4vw,2.5rem); font-weight:600;}
+  .sec-head p{color:var(--steel); margin-top:16px; font-size:1.02rem;}
+  .section-pad{padding:120px 0;}
+  .border-top{border-top:1px solid rgba(255,255,255,0.07);}
+ 
+  /* ---------- PROBLEM ---------- */
+  .problem-grid{
+    display:grid; grid-template-columns:1.1fr 1fr; gap:64px; align-items:start;
+  }
+  .problem-copy p{color:var(--steel); font-size:1.05rem; margin-bottom:18px; max-width:540px;}
+  .problem-copy strong{color:var(--platinum); font-weight:600;}
+  .friction-list{display:flex; flex-direction:column; gap:0;}
+  .friction-item{
+    display:flex; gap:18px; padding:22px 0; border-top:1px solid rgba(255,255,255,0.07);
+  }
+  .friction-item:last-child{border-bottom:1px solid rgba(255,255,255,0.07);}
+  .friction-item .mono{color:var(--steel-dim); padding-top:3px; flex-shrink:0; width:64px;}
+  .friction-item h4{font-size:1.02rem; font-weight:600; margin-bottom:6px;}
+  .friction-item p{color:var(--steel); font-size:0.94rem;}
+ 
+  /* ---------- SOLUTION / STEPS ---------- */
+  .steps{display:grid; grid-template-columns:repeat(3,1fr); gap:2px; background:rgba(255,255,255,0.07); border-radius:18px; overflow:hidden;}
+  .step{background:var(--panel); padding:38px 32px; display:flex; flex-direction:column; gap:16px;}
+  .step-num{font-family:'JetBrains Mono',monospace; font-size:0.78rem; color:var(--amber);}
+  .step h3{font-size:1.2rem; font-weight:600;}
+  .step p{color:var(--steel); font-size:0.94rem;}
+  .step-icon{width:38px; height:38px; border-radius:10px; background:rgba(232,163,61,0.1); border:1px solid rgba(232,163,61,0.25); display:flex; align-items:center; justify-content:center;}
+  .step-icon svg{width:18px;height:18px;}
+ 
+  /* ---------- LIVE DEMO ---------- */
+  .demo-grid{display:grid; grid-template-columns:1fr 1fr; gap:32px; align-items:stretch;}
+  .demo-video-panel{position:relative;}
+  .video-frame{
+    position:relative; border-radius:18px; overflow:hidden; aspect-ratio:4/3;
+    background:#0B0C0E; border:1px solid rgba(255,255,255,0.09);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .video-frame video{
+    width:100%; height:100%; object-fit:cover; transform:scaleX(-1); display:block;
+  }
+  .video-overlay{
+    position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap:14px; background:radial-gradient(circle at 50% 40%, rgba(110,146,232,0.08), transparent 60%);
+    text-align:center; padding:0 24px;
+  }
+  .video-overlay.hidden{display:none;}
+  .rec-pill{
+    position:absolute; top:14px; left:14px; display:flex; align-items:center; gap:8px;
+    background:rgba(20,22,26,0.7); border:1px solid rgba(255,255,255,0.12); border-radius:100px;
+    padding:6px 12px; font-family:'JetBrains Mono',monospace; font-size:0.72rem; color:var(--platinum);
+  }
+  .rec-dot{width:8px;height:8px;border-radius:50%; background:#E85D5D; animation:pulseDot 1.4s ease-in-out infinite;}
+  @keyframes pulseDot{0%,100%{opacity:1;}50%{opacity:0.25;}}
+  .mic-pill{
+    position:absolute; top:14px; right:14px; display:flex; align-items:center; gap:6px;
+    background:rgba(20,22,26,0.7); border:1px solid rgba(110,146,232,0.35); border-radius:100px;
+    padding:6px 12px; font-family:'JetBrains Mono',monospace; font-size:0.68rem; color:var(--mirror-blue);
+  }
+  .mic-icon{font-size:0.7rem;}
+ 
+  .demo-panel{display:flex; flex-direction:column; gap:18px;}
+  .demo-question-row{display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap;}
+  .role-select{
+    background:var(--panel); color:var(--platinum); border:1px solid rgba(255,255,255,0.12);
+    border-radius:10px; padding:9px 14px; font-family:'Inter',sans-serif; font-size:0.86rem;
+  }
+  .link-btn{
+    background:none; border:none; color:var(--mirror-blue); font-size:0.84rem; font-weight:600; cursor:pointer;
+  }
+  .link-btn:hover{text-decoration:underline;}
+  .demo-question{
+    font-family:'Fraunces',serif; font-size:clamp(1.05rem,2vw,1.32rem); color:var(--platinum); font-weight:500;
+    min-height:64px;
+  }
+  .demo-controls{display:flex; gap:12px; flex-wrap:wrap;}
+  .transcript-box{
+    width:100%; min-height:90px; resize:vertical; background:var(--panel);
+    border:1px solid rgba(255,255,255,0.1); border-radius:12px; color:var(--platinum);
+    font-family:'Inter',sans-serif; font-size:0.92rem; padding:14px; line-height:1.5;
+  }
+  .transcript-box:focus{outline:none; border-color:rgba(232,163,61,0.5);}
+  #sttStatus{min-height:14px; display:block;}
+ 
+  .results-glass{margin-top:46px;}
+ 
+  @media (max-width:820px){
+    .demo-grid{grid-template-columns:1fr;}
+  }
+ 
+  /* ---------- FEATURES ---------- */
+  .feature-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:1px; background:rgba(255,255,255,0.07); border-radius:18px; overflow:hidden;}
+  .feature{background:var(--panel); padding:36px; transition:background .3s ease;}
+  .feature:hover{background:var(--panel-light);}
+  .feature h3{font-size:1.12rem; font-weight:600; margin-bottom:10px; display:flex; align-items:center; gap:10px;}
+  .feature h3 .pip{width:7px;height:7px;border-radius:50%;background:var(--mirror-blue);}
+  .feature p{color:var(--steel); font-size:0.93rem;}
+ 
+  /* ---------- AUDIENCE ---------- */
+  .audience-row{display:grid; grid-template-columns:repeat(4,1fr); gap:18px;}
+  .aud-card{
+    border:1px solid rgba(255,255,255,0.09); border-radius:16px; padding:28px 22px;
+    transition:transform .3s ease, border-color .3s ease;
+  }
+  .aud-card:hover{transform:translateY(-4px); border-color:rgba(232,163,61,0.4);}
+  .aud-card .mono{color:var(--mirror-blue); display:block; margin-bottom:14px;}
+  .aud-card h4{font-size:1.02rem; font-weight:600; margin-bottom:8px;}
+  .aud-card p{font-size:0.88rem; color:var(--steel);}
+ 
+  /* ---------- MARKET ---------- */
+  .market-wrap{display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:center;}
+  .market-copy p{color:var(--steel); font-size:1.04rem; margin-bottom:18px; max-width:520px;}
+  .market-stat-stack{display:flex; flex-direction:column; gap:0;}
+  .market-stat{
+    display:flex; align-items:baseline; gap:18px; padding:24px 0;
+    border-top:1px solid rgba(255,255,255,0.08);
+  }
+  .market-stat:last-child{border-bottom:1px solid rgba(255,255,255,0.08);}
+  .market-stat .big{font-family:'Fraunces',serif; font-size:2.2rem; color:var(--amber); font-weight:600; flex-shrink:0; width:120px;}
+  .market-stat .desc{color:var(--steel); font-size:0.92rem;}
+ 
+  /* ---------- COMPETITIVE ADVANTAGE (mirrored comparison) ---------- */
+  .compare{
+    display:grid; grid-template-columns:1fr 1fr; border-radius:18px; overflow:hidden;
+    border:1px solid rgba(255,255,255,0.09);
+  }
+  .compare-col{padding:40px 38px;}
+  .compare-col.them{background:var(--panel); border-right:1px solid rgba(255,255,255,0.09);}
+  .compare-col.us{background:linear-gradient(160deg, rgba(232,163,61,0.07), rgba(110,146,232,0.05));}
+  .compare-col .mono{margin-bottom:22px; display:block;}
+  .compare-col.them .mono{color:var(--steel-dim);}
+  .compare-col.us .mono{color:var(--amber);}
+  .compare-row{display:flex; gap:12px; padding:14px 0; border-top:1px solid rgba(255,255,255,0.06); font-size:0.95rem;}
+  .compare-row:first-of-type{border-top:none;}
+  .compare-col.them .compare-row{color:var(--steel-dim);}
+  .compare-col.us .compare-row{color:var(--platinum);}
+  .compare-row .mark{flex-shrink:0; width:18px;}
+ 
+  /* ---------- FUTURE VISION (cluster) ---------- */
+  .cluster{display:flex; flex-wrap:wrap; gap:14px;}
+  .cluster-chip{
+    border:1px solid rgba(255,255,255,0.1); border-radius:14px; padding:20px 24px;
+    flex:1 1 220px; transition:border-color .3s ease, transform .3s ease;
+  }
+  .cluster-chip:hover{border-color:rgba(110,146,232,0.45); transform:translateY(-3px);}
+  .cluster-chip h4{font-size:0.98rem; font-weight:600; margin-bottom:8px; color:var(--platinum);}
+  .cluster-chip p{font-size:0.86rem; color:var(--steel);}
+ 
+  /* ---------- CTA / FOOTER ---------- */
+  .cta-band{
+    padding:110px 0; text-align:center; position:relative;
+  }
+  .cta-band h2{font-size:clamp(1.9rem,4.4vw,3rem); max-width:680px; margin:0 auto 22px;}
+  .cta-band p{color:var(--steel); max-width:480px; margin:0 auto 36px;}
+ 
+  footer{border-top:1px solid rgba(255,255,255,0.07); padding:48px 0 36px;}
+  .footer-row{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:18px;}
+  .footer-row .mono{color:var(--steel-dim);}
+  .footer-links{display:flex; gap:26px;}
+  .footer-links a{color:var(--steel); font-size:0.88rem; transition:color .25s ease;}
+  .footer-links a:hover{color:var(--platinum);}
+ 
+  /* ---------- REVEAL ON SCROLL ---------- */
+  .reveal{opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+ 
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:920px){
+    .problem-grid, .market-wrap{grid-template-columns:1fr; gap:40px;}
+    .steps{grid-template-columns:1fr;}
+    .feature-grid{grid-template-columns:1fr;}
+    .audience-row{grid-template-columns:repeat(2,1fr);}
+    .compare{grid-template-columns:1fr;}
+    .compare-col.them{border-right:none; border-bottom:1px solid rgba(255,255,255,0.09);}
+  }
+  @media (max-width:560px){
+    .hero{padding-top:140px;}
+    .audience-row{grid-template-columns:1fr;}
+    .section-pad{padding:88px 0;}
+    .mirror-top, .mirror-bottom{padding:28px 22px;}
+    .market-stat .big{width:90px; font-size:1.7rem;}
+  }
+</style>
+</head>
+<body>
+ 
+<header>
+  <nav>
+    <div class="logo"><span class="logo-mark"></span>AI Interview Mirror</div>
+    <div class="nav-links">
+      <a href="#problem">Problem</a>
+      <a href="#solution">Solution</a>
+      <a href="#demo">Try it</a>
+      <a href="#features">Features</a>
+      <a href="#audience">Who it's for</a>
+      <a href="#vision">Vision</a>
+      <a href="#cta" class="nav-cta">Start practicing</a>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#problem">Problem</a>
+    <a href="#solution">Solution</a>
+    <a href="#demo">Try it</a>
+    <a href="#features">Features</a>
+    <a href="#audience">Who it's for</a>
+    <a href="#vision">Vision</a>
+    <a href="#cta" class="nav-cta" style="width:fit-content;">Start practicing</a>
+  </div>
+</header>
+ 
+<main>
+ 
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <span class="eyebrow mono"><span class="dot"></span>Interview preparation, reflected back as feedback</span>
+      <h1>Practice out loud.<br>See yourself <em>as the room would.</em></h1>
+      <p class="sub">AI Interview Mirror runs realistic mock interviews tailored to your target role, then reflects your answers back as clear, specific feedback on what to fix before the real thing.</p>
+      <div class="hero-ctas">
+        <a href="#cta" class="btn btn-primary">Start a mock interview</a>
+        <a href="#solution" class="btn btn-ghost">See how it works</a>
+      </div>
+    </div>
+ 
+    <div class="mirror-stage">
+      <div class="mirror-glass">
+        <div class="mirror-top">
+          <span class="mono" style="color:var(--steel-dim);">YOU, ANSWERING</span>
+          <p class="speak-line">"Honestly... I think I get a bit nervous when they ask about gaps in my resume."<span class="cursor-tag">00:42</span></p>
+        </div>
+        <div class="mirror-divider"></div>
+        <div class="mirror-bottom">
+          <span class="mono" style="color:var(--mirror-blue);">THE MIRROR, REFLECTING</span>
+          <p class="reflect-line">"Pacing slows and filler words rise right when the question turns personal."</p>
+          <div class="tags-row">
+            <span class="tag">confidence: dips 18%</span>
+            <span class="tag">pacing: uneven</span>
+            <span class="tag">fix: reframe the gap as a decision</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+ 
+  <!-- PROBLEM -->
+  <section id="problem" class="section-pad border-top">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="mono">The problem</span>
+        <h2>Most candidates walk in undertrained, not underqualified.</h2>
+      </div>
+      <div class="problem-grid">
+        <div class="problem-copy reveal">
+          <p>Skill isn't usually the gap. <strong>Practice is.</strong> Strong candidates lose offers to nerves, rambling answers, and pacing that falls apart the moment a question gets personal — not because they lack the experience to back it up.</p>
+          <p>Real mock interviews need a mentor, a trainer, or a generous friend with free time. That makes consistent practice expensive, hard to schedule, and dependent on whoever happens to be available — so most people simply skip it.</p>
+        </div>
+        <div class="friction-list reveal">
+          <div class="friction-item">
+            <span class="mono">01 / ACCESS</span>
+            <div><h4>Mentors don't scale</h4><p>One trainer can only run so many mock sessions a week, for so many students.</p></div>
+          </div>
+          <div class="friction-item">
+            <span class="mono">02 / COST</span>
+            <div><h4>Coaching is expensive</h4><p>Quality interview coaching is priced for the few, not for every graduating class.</p></div>
+          </div>
+          <div class="friction-item">
+            <span class="mono">03 / CONSISTENCY</span>
+            <div><h4>Feedback is uneven</h4><p>Two mentors rarely agree on what "good" sounded like — so the feedback contradicts itself.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+ 
+  <!-- SOLUTION -->
+  <section id="solution" class="section-pad border-top">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="mono">The solution</span>
+        <h2>One coach, available every time you need to rehearse.</h2>
+        <p>AI Interview Mirror runs the loop a great mentor would — ask, listen, evaluate, reflect — except it's ready at 11pm before the interview, not just during office hours.</p>
+      </div>
+      <div class="steps reveal">
+        <div class="step">
+          <div class="step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#E8A33D" stroke-width="1.6"><path d="M12 18.5a6.5 6.5 0 100-13 6.5 6.5 0 000 13zM12 9v4M12 16h.01" stroke-linecap="round"/></svg></div>
+          <span class="step-num">STEP 01</span>
+          <h3>Ask role-specific questions</h3>
+          <p>Tell it the role, the industry, even the company you're targeting — the interview adapts its questions to match.</p>
+        </div>
+        <div class="step">
+          <div class="step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#E8A33D" stroke-width="1.6"><path d="M4 12c2-4 5-6 8-6s6 2 8 6c-2 4-5 6-8 6s-6-2-8-6z" stroke-linecap="round"/><circle cx="12" cy="12" r="2.4"/></svg></div>
+          <span class="step-num">STEP 02</span>
+          <h3>Listen and evaluate</h3>
+          <p>Every answer is read for clarity, confidence, pacing, and how well it actually addresses the question asked.</p>
+        </div>
+        <div class="step">
+          <div class="step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#E8A33D" stroke-width="1.6"><path d="M4 19h16M7 15v-4M12 15V7M17 15v-7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <span class="step-num">STEP 03</span>
+          <h3>Reflect specific feedback</h3>
+          <p>You get a session report — exact strengths, exact weak spots, and what to change before the next attempt.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+ 
+  <!-- LIVE DEMO -->
+  <section id="demo" class="section-pad border-top">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="mono">Try it now</span>
+        <h2>Step in front of the mirror.</h2>
+        <p>Turn on your camera, answer one real interview question out loud, and get feedback computed from what you actually said — pace, filler words, and length, reflected straight back.</p>
+      </div>
+ 
+      <div class="demo-grid reveal">
+        <div class="demo-video-panel">
+          <div class="video-frame">
+            <video id="demoVideo" autoplay muted playsinline></video>
+            <div class="video-overlay" id="videoOverlay">
+              <button class="btn btn-ghost" id="enableCamBtn">Turn on camera &amp; mic</button>
+              <span class="mono" style="color:var(--steel-dim);">Stays on your device. Nothing is uploaded.</span>
+            </div>
+            <div class="rec-pill" id="recPill" style="display:none;"><span class="rec-dot"></span><span id="timerLabel">00:00</span></div>
+            <div class="mic-pill" id="micPill" style="display:none;"><span class="mic-icon">●)</span> mic live</div>
+          </div>
+        </div>
+ 
+        <div class="demo-panel">
+          <div class="demo-question-row">
+            <select id="roleSelect" class="role-select" aria-label="Choose interview track">
+              <option value="software">Software engineering</option>
+              <option value="marketing">Marketing</option>
+              <option value="management">Management</option>
+              <option value="general">General / behavioral</option>
+            </select>
+            <button class="link-btn" id="newQuestionBtn">New question →</button>
+          </div>
+ 
+          <p class="demo-question" id="demoQuestion">Pick a track and press "New question" to begin.</p>
+ 
+          <div class="demo-controls">
+            <button class="btn btn-primary" id="startAnswerBtn">Start answering</button>
+            <button class="btn btn-ghost" id="stopAnswerBtn" style="display:none;">Stop &amp; reflect</button>
+          </div>
+ 
+          <textarea id="transcriptBox" class="transcript-box" placeholder="If your browser can't hear you, type your answer here, then press Stop &amp; reflect."></textarea>
+          <span class="mono" id="sttStatus" style="color:var(--steel-dim);"></span>
+        </div>
+      </div>
+ 
+      <div class="mirror-glass results-glass reveal" id="resultsGlass" style="display:none;">
+        <div class="mirror-top">
+          <span class="mono" style="color:var(--steel-dim);">YOU, ANSWERING</span>
+          <p class="speak-line" id="resultExcerpt" style="animation:none; opacity:1; transform:none;"></p>
+        </div>
+        <div class="mirror-divider"></div>
+        <div class="mirror-bottom">
+          <span class="mono" style="color:var(--mirror-blue);">THE MIRROR, REFLECTING</span>
+          <p class="reflect-line" id="resultReflection"></p>
+          <div class="tags-row" id="resultTags"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+ 
+  <!-- FEATURES -->
+  <section id="features" class="section-pad border-top">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="mono">Key features</span>
+        <h2>Built around one job: get you interview-ready.</h2>
+      </div>
+      <div class="feature-grid reveal">
+        <div class="feature">
+          <h3><span class="pip"></span>Role-specific interviews</h3>
+          <p>Questions generated from your profile, target role, and industry — not a generic question bank.</p>
+        </div>
+        <div class="feature">
+          <h3><span class="pip"></span>Realistic scenario simulation</h3>
+          <p>Mock sessions that mirror the structure and pressure of an actual interview, not a quiz format.</p>
+        </div>
+        <div class="feature">
+          <h3><span class="pip"></span>Clarity & confidence scoring</h3>
+          <p>Speaking pace, hesitation, and confidence are tracked through every answer, not just judged at the end.</p>
+        </div>
+        <div class="feature">
+          <h3><span class="pip"></span>Communication effectiveness</h3>
+          <p>Feedback on whether an answer actually lands — structure, relevance, and how convincing it sounds.</p>
+        </div>
+        <div class="feature">
+          <h3><span class="pip"></span>Progress tracking over time</h3>
+          <p>Performance reports that show whether last week's weak spot is actually improving session to session.</p>
+        </div>
+        <div class="feature">
+          <h3><span class="pip"></span>Recurring weakness detection</h3>
+          <p>Patterns that show up across multiple sessions get flagged, so the same mistake doesn't repeat unnoticed.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+ 
+  <!-- AUDIENCE -->
+  <section id="audience" class="section-pad border-top">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="mono">Who it's for</span>
+        <h2>Anyone who has to talk their way into an opportunity.</h2>
+      </div>
+      <div class="audience-row reveal">
+        <div class="aud-card">
+          <span class="mono">STUDENTS</span>
+          <h4>College students</h4>
+          <p>Preparing for campus placements, often facing their first real interview panel.</p>
+        </div>
+        <div class="aud-card">
+          <span class="mono">GRADUATES</span>
+          <h4>Fresh graduates</h4>
+          <p>Looking for that first job, with technical skills ahead of interview experience.</p>
+        </div>
+        <div class="aud-card">
+          <span class="mono">PROFESSIONALS</span>
+          <h4>Working professionals</h4>
+          <p>Preparing for technical or managerial rounds tied to a career move up.</p>
+        </div>
+        <div class="aud-card">
+          <span class="mono">INSTITUTIONS</span>
+          <h4>Institutions & training centers</h4>
+          <p>Using it at scale to lift placement outcomes across an entire cohort.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+ 
+  <!-- MARKET -->
+  <section class="section-pad border-top">
+    <div class="wrap">
+      <div class="market-wrap">
+        <div class="market-copy reveal">
+          <span class="mono" style="color:var(--amber);">Market opportunity</span>
+          <h2 style="margin:16px 0 18px; font-size:clamp(1.6rem,3vw,2.2rem);">Demand for career-readiness tools keeps climbing.</h2>
+          <p>Every graduating class adds millions of candidates who need interview practice and have nowhere consistent to get it. Digital learning has already proven people will adopt online tools for career growth — interview readiness is the part that's still mostly offline.</p>
+          <p>An AI-driven platform can meet that demand at a scale no roster of human coaches ever could.</p>
+        </div>
+        <div class="market-stat-stack reveal">
+          <div class="market-stat">
+            <span class="big">∞</span>
+            <span class="desc">Sessions available any time — no scheduling around a mentor's calendar.</span>
+          </div>
+          <div class="market-stat">
+            <span class="big">1:1</span>
+            <span class="desc">Personalized practice for every learner, instead of one trainer split across many.</span>
+          </div>
+          <div class="market-stat">
+            <span class="big">↑</span>
+            <span class="desc">Scales with every new graduating class, without adding new coaching headcount.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+ 
+  <!-- COMPETITIVE ADVANTAGE -->
+  <section class="section-pad border-top">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="mono">Competitive advantage</span>
+        <h2>Generic learning platforms teach skills. This rehearses the moment.</h2>
+      </div>
+      <div class="compare reveal">
+        <div class="compare-col them">
+          <span class="mono">GENERIC LEARNING PLATFORMS</span>
+          <div class="compare-row"><span class="mark">–</span>Broad courses, not interview-specific</div>
+          <div class="compare-row"><span class="mark">–</span>Feedback arrives days later, if at all</div>
+          <div class="compare-row"><span class="mark">–</span>Same content regardless of your role</div>
+          <div class="compare-row"><span class="mark">–</span>No way to track interview-day readiness</div>
+        </div>
+        <div class="compare-col us">
+          <span class="mono">AI INTERVIEW MIRROR</span>
+          <div class="compare-row"><span class="mark">+</span>Built specifically for interview readiness</div>
+          <div class="compare-row"><span class="mark">+</span>Feedback the moment a session ends</div>
+          <div class="compare-row"><span class="mark">+</span>Practice tailored to your exact target role</div>
+          <div class="compare-row"><span class="mark">+</span>Performance tracked across every attempt</div>
+        </div>
+      </div>
+    </div>
+  </section>
+ 
+  <!-- FUTURE VISION -->
+  <section id="vision" class="section-pad border-top">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="mono">Future vision</span>
+        <h2>The mirror is the start of a full career toolkit.</h2>
+        <p>Interview practice is the entry point. The roadmap extends into everything around landing the role.</p>
+      </div>
+      <div class="cluster reveal">
+        <div class="cluster-chip"><h4>Resume optimization</h4><p>Sharpen the document that gets you the interview in the first place.</p></div>
+        <div class="cluster-chip"><h4>Skill-gap analysis</h4><p>See exactly what's missing between where you are and the role you want.</p></div>
+        <div class="cluster-chip"><h4>Personalized learning paths</h4><p>Recommendations that close the gaps the mirror surfaces.</p></div>
+        <div class="cluster-chip"><h4>Career planning</h4><p>Guidance on the moves that build toward where you actually want to land.</p></div>
+        <div class="cluster-chip"><h4>Job application support</h4><p>Help getting the application itself in front of the right people.</p></div>
+      </div>
+    </div>
+  </section>
+ 
+  <!-- CTA -->
+  <section id="cta" class="cta-band border-top">
+    <div class="wrap">
+      <span class="mono" style="color:var(--amber);">Ready when you are</span>
+      <h2 style="margin-top:18px;">Your next interview shouldn't be the first time you say the answer out loud.</h2>
+      <p>Run a free mock session and see exactly what the room would notice.</p>
+      <a href="#" class="btn btn-primary">Start your first mock interview</a>
+    </div>
+  </section>
+ 
+</main>
+ 
+<footer>
+  <div class="wrap footer-row">
+    <span class="mono">AI INTERVIEW MIRROR — PRACTICE. REFLECT. IMPROVE.</span>
+    <div class="footer-links">
+      <a href="#problem">Problem</a>
+      <a href="#features">Features</a>
+      <a href="#audience">Audience</a>
+      <a href="#vision">Vision</a>
+    </div>
+  </div>
+</footer>
+ 
+<script>
+  // mobile nav toggle
+  const navToggle = document.getElementById('navToggle');
+  const mobileMenu = document.getElementById('mobileMenu');
+  navToggle.addEventListener('click', () => {
+    mobileMenu.classList.toggle('open');
+  });
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobileMenu.classList.remove('open')));
+ 
+  // ---------- LIVE DEMO: camera, speech, timer, analysis ----------
+  const questionBank = {
+    software: [
+      "Walk me through a bug that took you much longer to fix than expected.",
+      "Tell me about a time you disagreed with a teammate's technical approach.",
+      "Describe a project where the requirements changed midway through.",
+      "How do you decide when code is 'good enough' to ship?"
+    ],
+    marketing: [
+      "Tell me about a campaign that underperformed. What did you do next?",
+      "How do you decide which channel deserves more budget?",
+      "Describe a time you had to make a decision with incomplete data.",
+      "Walk me through how you'd position a product against a stronger competitor."
+    ],
+    management: [
+      "Tell me about a time you had to deliver difficult feedback.",
+      "Describe a decision you made that wasn't popular with your team.",
+      "How do you handle a high performer who isn't a team player?",
+      "Walk me through how you prioritize when everything feels urgent."
+    ],
+    general: [
+      "Tell me about yourself.",
+      "Describe a time you failed and what you learned from it.",
+      "Why are you looking to leave your current role?",
+      "Tell me about a time you had to work with someone difficult."
+    ]
+  };
+  let lastQuestionIdx = -1;
+ 
+  const demoVideo = document.getElementById('demoVideo');
+  const videoOverlay = document.getElementById('videoOverlay');
+  const enableCamBtn = document.getElementById('enableCamBtn');
+  const recPill = document.getElementById('recPill');
+  const micPill = document.getElementById('micPill');
+  const timerLabel = document.getElementById('timerLabel');
+  const roleSelect = document.getElementById('roleSelect');
+  const newQuestionBtn = document.getElementById('newQuestionBtn');
+  const demoQuestion = document.getElementById('demoQuestion');
+  const startAnswerBtn = document.getElementById('startAnswerBtn');
+  const stopAnswerBtn = document.getElementById('stopAnswerBtn');
+  const transcriptBox = document.getElementById('transcriptBox');
+  const sttStatus = document.getElementById('sttStatus');
+  const resultsGlass = document.getElementById('resultsGlass');
+  const resultExcerpt = document.getElementById('resultExcerpt');
+  const resultReflection = document.getElementById('resultReflection');
+  const resultTags = document.getElementById('resultTags');
+ 
+  let mediaStream = null;
+  let micGranted = false;
+ 
+  enableCamBtn.addEventListener('click', async () => {
+    enableCamBtn.disabled = true;
+    enableCamBtn.textContent = 'Requesting access…';
+    try{
+      // Ask for camera + mic together so the mic permission is already
+      // granted by the time speech recognition needs it later.
+      mediaStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+      demoVideo.srcObject = mediaStream;
+      videoOverlay.classList.add('hidden');
+      micGranted = mediaStream.getAudioTracks().length > 0;
+      if(micGranted){ micPill.style.display = 'flex'; }
+    }catch(err){
+      try{
+        // Mic may be blocked while camera still works (or vice versa) — retry video-only.
+        mediaStream = await navigator.mediaDevices.getUserMedia({ video: true });
+        demoVideo.srcObject = mediaStream;
+        videoOverlay.classList.add('hidden');
+        sttStatus.textContent = 'Camera is on. Mic access was blocked — type your answer below instead.';
+      }catch(err2){
+        enableCamBtn.disabled = false;
+        enableCamBtn.textContent = 'Turn on camera & mic';
+        videoOverlay.innerHTML = '<span class="mono" style="color:var(--steel-dim); max-width:240px;">Camera/mic access wasn\'t available here — that\'s fine, you can still type your answer below.</span>';
+      }
+    }
+  });
+ 
+  function pickQuestion(){
+    const list = questionBank[roleSelect.value];
+    let idx = Math.floor(Math.random() * list.length);
+    if(list.length > 1){ while(idx === lastQuestionIdx){ idx = Math.floor(Math.random() * list.length); } }
+    lastQuestionIdx = idx;
+    demoQuestion.textContent = '"' + list[idx] + '"';
+  }
+  newQuestionBtn.addEventListener('click', pickQuestion);
+  roleSelect.addEventListener('change', pickQuestion);
+ 
+  let timerInterval = null;
+  let elapsedSeconds = 0;
+  let recognition = null;
+  let recognizing = false;
+ 
+  const SpeechRecognitionAPI = window.SpeechRecognition || window.webkitSpeechRecognition;
+ 
+  function formatTime(s){
+    const m = Math.floor(s/60).toString().padStart(2,'0');
+    const sec = (s%60).toString().padStart(2,'0');
+    return m+':'+sec;
+  }
+ 
+  startAnswerBtn.addEventListener('click', () => {
+    elapsedSeconds = 0;
+    timerLabel.textContent = '00:00';
+    recPill.style.display = 'flex';
+    startAnswerBtn.style.display = 'none';
+    stopAnswerBtn.style.display = 'inline-flex';
+    resultsGlass.style.display = 'none';
+    transcriptBox.value = '';
+ 
+    timerInterval = setInterval(() => {
+      elapsedSeconds++;
+      timerLabel.textContent = formatTime(elapsedSeconds);
+    }, 1000);
+ 
+    if(SpeechRecognitionAPI){
+      recognition = new SpeechRecognitionAPI();
+      recognition.continuous = true;
+      recognition.interimResults = true;
+      recognition.lang = 'en-US';
+      let finalTranscript = '';
+      recognition.onresult = (event) => {
+        let interim = '';
+        for(let i = event.resultIndex; i < event.results.length; i++){
+          if(event.results[i].isFinal){ finalTranscript += event.results[i][0].transcript + ' '; }
+          else{ interim += event.results[i][0].transcript; }
+        }
+        transcriptBox.value = (finalTranscript + interim).trim();
+      };
+      recognition.onerror = () => {
+        sttStatus.textContent = "Couldn't access the microphone — type your answer above instead.";
+      };
+      recognition.onend = () => { if(recognizing){ try{ recognition.start(); }catch(e){} } };
+      try{
+        recognition.start();
+        recognizing = true;
+        sttStatus.textContent = 'Listening… speak your answer.';
+      }catch(e){
+        sttStatus.textContent = 'Type your answer above, then press Stop & reflect.';
+      }
+    } else {
+      sttStatus.textContent = 'Speech recognition isn\'t supported here — type your answer above, then press Stop & reflect.';
+      transcriptBox.focus();
+    }
+  });
+ 
+  stopAnswerBtn.addEventListener('click', () => {
+    clearInterval(timerInterval);
+    recPill.style.display = 'none';
+    stopAnswerBtn.style.display = 'none';
+    startAnswerBtn.style.display = 'inline-flex';
+    if(recognition && recognizing){
+      recognizing = false;
+      try{ recognition.stop(); }catch(e){}
+    }
+    sttStatus.textContent = '';
+    runAnalysis(transcriptBox.value, elapsedSeconds);
+  });
+ 
+  const fillerWords = ['um','uh','like','actually','basically','honestly','you know','i mean','sort of','kind of'];
+ 
+  function runAnalysis(text, seconds){
+    const clean = text.trim();
+    const words = clean.length ? clean.split(/\s+/) : [];
+    const wordCount = words.length;
+ 
+    if(wordCount < 6){
+      resultExcerpt.textContent = clean.length ? '"' + clean + '"' : '(no answer captured)';
+      resultReflection.textContent = "That's a short answer to reflect much from — try walking through a full example: the situation, what you did, and the outcome.";
+      resultTags.innerHTML = '<span class="tag">words: ' + wordCount + '</span><span class="tag">try: aim for 60–120 words</span>';
+      resultsGlass.style.display = 'block';
+      resultsGlass.scrollIntoView({ behavior:'smooth', block:'center' });
+      return;
+    }
+ 
+    const lowerText = ' ' + clean.toLowerCase() + ' ';
+    let fillerCount = 0;
+    fillerWords.forEach(f => {
+      const re = new RegExp('\\b'+f.replace(/ /g,'\\s+')+'\\b','g');
+      const matches = lowerText.match(re);
+      if(matches) fillerCount += matches.length;
+    });
+ 
+    const minutes = Math.max(seconds/60, 0.08);
+    const wpm = Math.round(wordCount / minutes);
+ 
+    let pacingLabel, pacingTip;
+    if(wpm > 175){ pacingLabel = 'rushed'; pacingTip = 'slow down — pause between your situation and your outcome'; }
+    else if(wpm > 150){ pacingLabel = 'a little fast'; pacingTip = 'ease off slightly, especially before the key point'; }
+    else if(wpm < 90){ pacingLabel = 'a little slow'; pacingTip = 'tighten the setup so the outcome lands sooner'; }
+    else{ pacingLabel = 'steady'; pacingTip = 'the pace itself is working — keep it'; }
+ 
+    let confidence = 78;
+    confidence -= Math.min(fillerCount * 4, 28);
+    if(wpm > 175 || wpm < 80) confidence -= 10;
+    if(wordCount < 25) confidence -= 10;
+    if(wordCount >= 50 && wordCount <= 160) confidence += 6;
+    confidence = Math.max(8, Math.min(96, Math.round(confidence)));
+ 
+    let confidenceLabel;
+    if(confidence >= 75) confidenceLabel = 'reads as confident';
+    else if(confidence >= 55) confidenceLabel = 'reads as a little unsure in places';
+    else confidenceLabel = 'reads as hesitant in places';
+ 
+    const excerpt = clean.length > 160 ? clean.slice(0,157)+'…' : clean;
+    resultExcerpt.textContent = '"' + excerpt + '"';
+ 
+    let mainTip;
+    if(fillerCount >= 4) mainTip = 'Cut the filler words first — ' + fillerCount + ' in this answer is what\'s pulling confidence down the most.';
+    else if(wpm > 175 || wpm < 80) mainTip = 'Work on pace next — ' + pacingTip + '.';
+    else if(wordCount < 30) mainTip = 'Give it more substance — add a concrete example with a clear outcome.';
+    else mainTip = 'This is a solid base — tighten the ending so it lands on the result, not the lead-up.';
+ 
+    resultReflection.textContent = 'That\'s ' + wordCount + ' words in ' + formatTime(seconds) + ' — about ' + wpm + ' words per minute, which ' + confidenceLabel + '. ' + mainTip;
+ 
+    resultTags.innerHTML =
+      '<span class="tag">confidence: ' + confidence + '%</span>' +
+      '<span class="tag">pacing: ' + pacingLabel + '</span>' +
+      '<span class="tag">filler words: ' + fillerCount + '</span>';
+ 
+    resultsGlass.style.display = 'block';
+    resultsGlass.scrollIntoView({ behavior:'smooth', block:'center' });
+  }
+ 
+  window.addEventListener('beforeunload', () => {
+    if(mediaStream){ mediaStream.getTracks().forEach(t => t.stop()); }
+  });
+ 
+  pickQuestion();
+ 
+  // scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.classList.add('in');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => io.observe(el));
+</script>
+ 
+</body>
+</html>
+ 
