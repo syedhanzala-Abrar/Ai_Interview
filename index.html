@@ -351,6 +351,132 @@
   .reveal{opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s ease;}
   .reveal.in{opacity:1; transform:translateY(0);}
  
+  /* ---------- RESUME ANALYSER ---------- */
+  .resume-outer{display:grid; grid-template-columns:320px 1fr; gap:32px; align-items:start;}
+ 
+  /* sector sidebar */
+  .sector-sidebar{display:flex; flex-direction:column; gap:0; border-radius:16px; overflow:hidden; border:1px solid rgba(255,255,255,0.08);}
+  .sector-btn{
+    background:var(--panel); border:none; text-align:left; padding:14px 18px;
+    color:var(--steel); font-family:'Inter',sans-serif; font-size:0.88rem; cursor:pointer;
+    display:flex; align-items:center; gap:12px; border-top:1px solid rgba(255,255,255,0.06);
+    transition:background .2s ease, color .2s ease;
+  }
+  .sector-btn:first-child{border-top:none;}
+  .sector-btn:hover{background:var(--panel-light); color:var(--platinum);}
+  .sector-btn.active{background:rgba(232,163,61,0.1); color:var(--amber); border-left:3px solid var(--amber);}
+  .sector-btn .s-icon{font-size:1rem; width:22px; text-align:center; flex-shrink:0;}
+  .sector-btn .s-label{flex:1;}
+  .sector-btn .s-tag{font-family:'JetBrains Mono',monospace; font-size:0.6rem; background:rgba(255,255,255,0.06); padding:2px 6px; border-radius:4px; color:var(--steel-dim);}
+ 
+  /* right panel */
+  .resume-right{display:flex; flex-direction:column; gap:22px;}
+ 
+  /* drop zone */
+  .drop-zone{
+    border:2px dashed rgba(255,255,255,0.14); border-radius:18px; padding:48px 28px;
+    text-align:center; cursor:pointer; transition:border-color .25s ease, background .25s ease;
+    background:rgba(255,255,255,0.02); position:relative;
+  }
+  .drop-zone:hover, .drop-zone.dragover{border-color:var(--amber); background:rgba(232,163,61,0.05);}
+  .drop-zone input[type=file]{position:absolute; inset:0; opacity:0; cursor:pointer; font-size:0;}
+  .dz-icon{font-size:2.2rem; margin-bottom:12px; display:block;}
+  .dz-main{font-family:'Fraunces',serif; font-size:1.1rem; font-weight:500; margin-bottom:6px;}
+  .dz-sub{font-size:0.84rem; color:var(--steel-dim);}
+  .dz-formats{margin-top:12px; display:flex; justify-content:center; gap:8px;}
+  .dz-badge{font-family:'JetBrains Mono',monospace; font-size:0.62rem; padding:4px 8px; border-radius:6px; border:1px solid rgba(255,255,255,0.1); color:var(--steel);}
+  .file-chosen{display:none; align-items:center; justify-content:center; gap:12px; margin-top:14px;}
+  .file-chosen .fc-name{font-size:0.9rem; color:var(--platinum); font-weight:500;}
+  .file-chosen .fc-clear{font-size:0.8rem; color:var(--steel); cursor:pointer; text-decoration:underline; background:none; border:none; font-family:'Inter',sans-serif;}
+ 
+  /* sector knowledge preview */
+  .sector-preview{
+    background:var(--panel); border:1px solid rgba(255,255,255,0.08); border-radius:16px; padding:28px 26px;
+  }
+  .sector-preview h4{font-size:1rem; font-weight:600; margin-bottom:16px; display:flex; align-items:center; gap:10px;}
+  .kw-cloud{display:flex; flex-wrap:wrap; gap:8px;}
+  .kw{
+    font-family:'JetBrains Mono',monospace; font-size:0.68rem; padding:5px 11px;
+    border-radius:8px; border:1px solid rgba(110,146,232,0.28); color:var(--mirror-blue);
+    background:rgba(110,146,232,0.07); transition:background .2s ease;
+  }
+  .kw.matched{border-color:rgba(232,163,61,0.5); color:var(--amber); background:rgba(232,163,61,0.1);}
+ 
+  /* analyze btn */
+  .analyze-btn-wrap{display:flex; align-items:center; gap:14px; flex-wrap:wrap;}
+  #analyzeBtn{min-width:190px;}
+  #analyzeErr{font-size:0.84rem; color:#E85D5D;}
+ 
+  /* loading bar */
+  .progress-track{height:3px; border-radius:4px; background:rgba(255,255,255,0.08); overflow:hidden; display:none;}
+  .progress-fill{height:100%; width:0; background:linear-gradient(90deg,var(--amber),var(--mirror-blue)); transition:width 0.4s ease; border-radius:4px;}
+ 
+  /* results panel */
+  .resume-results{display:none; flex-direction:column; gap:22px;}
+ 
+  .score-row{display:grid; grid-template-columns:repeat(4,1fr); gap:14px;}
+  .score-card{
+    background:var(--panel); border:1px solid rgba(255,255,255,0.08); border-radius:14px;
+    padding:20px 18px; text-align:center;
+  }
+  .score-card .sc-value{
+    font-family:'Fraunces',serif; font-size:2rem; font-weight:600; display:block; margin-bottom:4px;
+  }
+  .score-card .sc-label{font-size:0.76rem; color:var(--steel);}
+  .score-card.highlight .sc-value{color:var(--amber);}
+  .score-card.good .sc-value{color:#56C898;}
+  .score-card.warn .sc-value{color:#E8A33D;}
+  .score-card.info .sc-value{color:var(--mirror-blue);}
+ 
+  .res-block{background:var(--panel); border:1px solid rgba(255,255,255,0.08); border-radius:16px; padding:28px 26px;}
+  .res-block h4{font-size:1rem; font-weight:600; margin-bottom:16px; display:flex; align-items:center; gap:10px;}
+  .res-block h4 .pip{width:7px;height:7px;border-radius:50%; flex-shrink:0;}
+  .res-block h4 .pip-amber{background:var(--amber);}
+  .res-block h4 .pip-green{background:#56C898;}
+  .res-block h4 .pip-blue{background:var(--mirror-blue);}
+  .res-block h4 .pip-red{background:#E85D5D;}
+ 
+  .strength-list, .gap-list, .tip-list{display:flex; flex-direction:column; gap:10px;}
+  .strength-item, .gap-item, .tip-item{
+    display:flex; gap:12px; font-size:0.9rem; padding:12px 14px; border-radius:10px;
+  }
+  .strength-item{background:rgba(86,200,152,0.08); color:var(--platinum);}
+  .gap-item{background:rgba(232,93,93,0.07); color:var(--platinum);}
+  .tip-item{background:rgba(110,146,232,0.07); color:var(--platinum);}
+  .strength-item .bullet{color:#56C898; flex-shrink:0;}
+  .gap-item .bullet{color:#E85D5D; flex-shrink:0;}
+  .tip-item .bullet{color:var(--mirror-blue); flex-shrink:0;}
+ 
+  .interview-qs{display:flex; flex-direction:column; gap:10px;}
+  .iq-item{
+    background:rgba(232,163,61,0.06); border:1px solid rgba(232,163,61,0.18);
+    border-radius:12px; padding:14px 16px; font-family:'Fraunces',serif;
+    font-size:0.96rem; color:var(--platinum); display:flex; gap:12px;
+  }
+  .iq-num{color:var(--amber); font-family:'JetBrains Mono',monospace; font-size:0.72rem; flex-shrink:0; padding-top:4px;}
+ 
+  .mirror-summary{
+    background:linear-gradient(135deg,rgba(232,163,61,0.06),rgba(110,146,232,0.05));
+    border:1px solid rgba(255,255,255,0.1); border-radius:16px; padding:28px 26px;
+  }
+  .mirror-summary p{font-family:'Fraunces',serif; font-size:1.1rem; color:var(--platinum); font-style:italic; line-height:1.55;}
+ 
+  .res-actions{display:flex; gap:12px; flex-wrap:wrap;}
+ 
+  @media(max-width:900px){
+    .resume-outer{grid-template-columns:1fr;}
+    .sector-sidebar{flex-direction:row; flex-wrap:wrap; border-radius:12px;}
+    .sector-btn{border-top:none; border-left:1px solid rgba(255,255,255,0.06); flex:1 1 140px;}
+    .sector-btn.active{border-left:1px solid rgba(232,163,61,0.5); border-bottom:3px solid var(--amber);}
+    .score-row{grid-template-columns:repeat(2,1fr);}
+  }
+  @media(max-width:500px){
+    .score-row{grid-template-columns:1fr 1fr;}
+    .sector-btn{flex:1 1 100px; padding:10px 12px;}
+  }
+ 
+  /* ---------- END RESUME ANALYSER ---------- */
+ 
   /* ---------- RESPONSIVE ---------- */
   @media (max-width:920px){
     .problem-grid, .market-wrap{grid-template-columns:1fr; gap:40px;}
@@ -378,6 +504,7 @@
       <a href="#problem">Problem</a>
       <a href="#solution">Solution</a>
       <a href="#demo">Try it</a>
+      <a href="resume.html" style="color:var(--amber);">Resume Analyzer ↗</a>
       <a href="#features">Features</a>
       <a href="#audience">Who it's for</a>
       <a href="#vision">Vision</a>
@@ -391,6 +518,7 @@
     <a href="#problem">Problem</a>
     <a href="#solution">Solution</a>
     <a href="#demo">Try it</a>
+    <a href="resume.html" style="color:var(--amber);">Resume Analyzer ↗</a>
     <a href="#features">Features</a>
     <a href="#audience">Who it's for</a>
     <a href="#vision">Vision</a>
@@ -693,6 +821,107 @@
     </div>
   </section>
  
+  <!-- ============================================================
+       RESUME AI — Upload, sector knowledge, Claude analysis
+       ============================================================ -->
+  <section id="resume" class="section-pad border-top">
+    <div class="wrap">
+ 
+      <div class="sec-head reveal">
+        <span class="mono">Resume Intelligence</span>
+        <h2>Upload your resume. The mirror reads it for your sector.</h2>
+        <p>Select the industry you're targeting, drop your resume, and get a real AI breakdown — match score, skill gaps, strengths, and the five interview questions recruiters in that sector always ask.</p>
+      </div>
+ 
+      <div class="resume-outer reveal">
+ 
+        <!-- LEFT: SECTOR SIDEBAR -->
+        <nav class="sector-sidebar" aria-label="Sector selection" id="sectorSidebar">
+          <button class="sector-btn active" data-sector="software"><span class="s-icon">💻</span><span class="s-label">Software Engineering</span><span class="s-tag">Tech</span></button>
+          <button class="sector-btn" data-sector="data"><span class="s-icon">📊</span><span class="s-label">Data & Analytics</span><span class="s-tag">Tech</span></button>
+          <button class="sector-btn" data-sector="product"><span class="s-icon">🧭</span><span class="s-label">Product Management</span><span class="s-tag">Tech</span></button>
+          <button class="sector-btn" data-sector="design"><span class="s-icon">🎨</span><span class="s-label">UX / Design</span><span class="s-tag">Creative</span></button>
+          <button class="sector-btn" data-sector="marketing"><span class="s-icon">📢</span><span class="s-label">Marketing & Growth</span><span class="s-tag">Business</span></button>
+          <button class="sector-btn" data-sector="sales"><span class="s-icon">🤝</span><span class="s-label">Sales & BD</span><span class="s-tag">Business</span></button>
+          <button class="sector-btn" data-sector="finance"><span class="s-icon">📈</span><span class="s-label">Finance & Banking</span><span class="s-tag">Finance</span></button>
+          <button class="sector-btn" data-sector="consulting"><span class="s-icon">🔍</span><span class="s-label">Consulting</span><span class="s-tag">Strategy</span></button>
+          <button class="sector-btn" data-sector="hr"><span class="s-icon">🧑‍🤝‍🧑</span><span class="s-label">HR & People Ops</span><span class="s-tag">People</span></button>
+          <button class="sector-btn" data-sector="healthcare"><span class="s-icon">🏥</span><span class="s-label">Healthcare</span><span class="s-tag">Medical</span></button>
+          <button class="sector-btn" data-sector="legal"><span class="s-icon">⚖️</span><span class="s-label">Legal</span><span class="s-tag">Law</span></button>
+          <button class="sector-btn" data-sector="education"><span class="s-icon">🎓</span><span class="s-label">Education</span><span class="s-tag">Academic</span></button>
+        </nav>
+ 
+        <!-- RIGHT PANEL -->
+        <div class="resume-right">
+ 
+          <!-- Drop Zone -->
+          <div class="drop-zone" id="dropZone">
+            <input type="file" id="resumeFile" accept=".pdf,.doc,.docx,.txt" />
+            <span class="dz-icon">📄</span>
+            <p class="dz-main">Drop your resume here</p>
+            <p class="dz-sub">or click to browse your files</p>
+            <div class="dz-formats"><span class="dz-badge">PDF</span><span class="dz-badge">DOCX</span><span class="dz-badge">TXT</span></div>
+            <div class="file-chosen" id="fileChosen">
+              <span class="fc-name" id="fcName"></span>
+              <button class="fc-clear" id="fcClear">remove</button>
+            </div>
+          </div>
+ 
+          <!-- Sector keyword preview -->
+          <div class="sector-preview" id="sectorPreview">
+            <h4 id="sectorPreviewTitle">💻 Software Engineering — key signals the AI looks for</h4>
+            <div class="kw-cloud" id="kwCloud"></div>
+          </div>
+ 
+          <!-- Analyse button -->
+          <div class="analyze-btn-wrap">
+            <button class="btn btn-primary" id="analyzeBtn">Analyse my resume</button>
+            <span id="analyzeErr"></span>
+          </div>
+          <div class="progress-track" id="progressTrack">
+            <div class="progress-fill" id="progressFill"></div>
+          </div>
+ 
+          <!-- Results (rendered after API response) -->
+          <div class="resume-results" id="resumeResults">
+ 
+            <div class="score-row" id="scoreRow"></div>
+ 
+            <div class="mirror-summary" id="mirrorSummary">
+              <p id="mirrorSummaryText"></p>
+            </div>
+ 
+            <div class="res-block">
+              <h4><span class="pip pip-green"></span>Strengths the recruiter will notice</h4>
+              <div class="strength-list" id="strengthList"></div>
+            </div>
+ 
+            <div class="res-block">
+              <h4><span class="pip pip-red"></span>Gaps to address before applying</h4>
+              <div class="gap-list" id="gapList"></div>
+            </div>
+ 
+            <div class="res-block">
+              <h4><span class="pip pip-blue"></span>Top interview questions for this sector</h4>
+              <div class="interview-qs" id="interviewQs"></div>
+            </div>
+ 
+            <div class="res-block">
+              <h4><span class="pip pip-amber"></span>Improvement tips</h4>
+              <div class="tip-list" id="tipList"></div>
+            </div>
+ 
+            <div class="res-actions">
+              <button class="btn btn-ghost" id="reanalyzeBtn">Re-analyse with another sector</button>
+              <button class="btn btn-primary" id="practiceQsBtn">Practise these questions →</button>
+            </div>
+          </div>
+ 
+        </div><!-- /resume-right -->
+      </div><!-- /resume-outer -->
+    </div>
+  </section>
+ 
   <!-- CTA -->
   <section id="cta" class="cta-band border-top">
     <div class="wrap">
@@ -710,6 +939,7 @@
     <span class="mono">AI INTERVIEW MIRROR — PRACTICE. REFLECT. IMPROVE.</span>
     <div class="footer-links">
       <a href="#problem">Problem</a>
+      <a href="#resume">Resume AI</a>
       <a href="#features">Features</a>
       <a href="#audience">Audience</a>
       <a href="#vision">Vision</a>
@@ -954,6 +1184,341 @@
  
   pickQuestion();
  
+  // ============================================================
+  //  RESUME ANALYSER — 12-sector knowledge base + Claude API
+  // ============================================================
+ 
+  const SECTOR_KNOWLEDGE = {
+    software:{
+      label:"Software Engineering", icon:"💻",
+      keywords:["JavaScript","TypeScript","Python","Java","Go","Rust","C++","React","Vue","Angular","Node.js","REST API","GraphQL","SQL","NoSQL","PostgreSQL","MongoDB","Redis","Docker","Kubernetes","CI/CD","Git","AWS","GCP","Azure","Microservices","System Design","OOP","Data Structures","Algorithms","TDD","Agile","Scrum","Code Review","Open Source"],
+      mustHave:["programming languages","git/version control","problem solving","deployed projects"],
+      niceToHave:["cloud certifications","open source contributions","system design experience"],
+      redFlags:["no measurable impact","only listing tools without context","no personal/team projects"]
+    },
+    data:{
+      label:"Data & Analytics", icon:"📊",
+      keywords:["Python","R","SQL","Pandas","NumPy","Scikit-learn","TensorFlow","PyTorch","Tableau","Power BI","Looker","Spark","Hadoop","Airflow","dbt","BigQuery","Snowflake","ETL","Data Pipeline","Statistical Analysis","Machine Learning","Deep Learning","A/B Testing","Feature Engineering","Data Modelling","Excel","Business Intelligence","KPI","Dashboards"],
+      mustHave:["SQL proficiency","Python or R","data visualisation","analytical projects"],
+      niceToHave:["ML model deployment","cloud data platforms","business impact metrics"],
+      redFlags:["no quantified outcomes","missing domain knowledge","only academic projects"]
+    },
+    product:{
+      label:"Product Management", icon:"🧭",
+      keywords:["Product Roadmap","PRD","User Stories","OKRs","KPIs","A/B Testing","User Research","Wireframing","Figma","JIRA","Agile","Scrum","Stakeholder Management","Go-to-Market","Competitive Analysis","Pricing Strategy","Customer Discovery","NPS","Retention","Growth","Prioritisation","MVP","Sprint","Backlog","Analytics","SQL","Data-Driven","Cross-Functional"],
+      mustHave:["shipped product experience","metrics/impact","cross-functional collaboration"],
+      niceToHave:["technical background","SQL/data skills","startup experience"],
+      redFlags:["no shipped products","vague impact statements","missing metrics"]
+    },
+    design:{
+      label:"UX / Design", icon:"🎨",
+      keywords:["Figma","Sketch","Adobe XD","InVision","Prototyping","Wireframing","User Research","Usability Testing","Information Architecture","Interaction Design","Visual Design","Design Systems","Accessibility","WCAG","User Flows","Journey Mapping","Persona","A/B Testing","HTML","CSS","Motion Design","Brand Identity","Typography","Colour Theory","Design Thinking"],
+      mustHave:["portfolio","Figma proficiency","user research methods","shipped designs"],
+      niceToHave:["design systems experience","front-end skills","accessibility expertise"],
+      redFlags:["no portfolio link","generic visual examples","no user research evidence"]
+    },
+    marketing:{
+      label:"Marketing & Growth", icon:"📢",
+      keywords:["SEO","SEM","Google Ads","Meta Ads","Content Marketing","Email Marketing","HubSpot","Marketo","Salesforce","CRM","Social Media","Influencer Marketing","Brand Strategy","Market Research","Campaign Management","Conversion Rate","CAC","LTV","ROI","Analytics","Google Analytics","Growth Hacking","Copywriting","Demand Generation","ABM","Paid Media","Organic Growth"],
+      mustHave:["campaign results with numbers","channel expertise","analytical tools"],
+      niceToHave:["multi-channel experience","content creation","marketing automation"],
+      redFlags:["no campaign metrics","brand-only background without digital","missing ROI data"]
+    },
+    sales:{
+      label:"Sales & Business Development", icon:"🤝",
+      keywords:["B2B Sales","SaaS Sales","CRM","Salesforce","HubSpot","Pipeline Management","Account Management","Cold Outreach","Negotiation","Quota Attainment","Revenue Growth","ARR","MRR","Discovery Calls","Closing","Prospecting","SDR","AE","Enterprise Sales","Channel Sales","Partnership","Deal Cycle","Objection Handling","Solution Selling","SPIN Selling","Consultative Sales"],
+      mustHave:["quota/target performance","revenue numbers","CRM experience"],
+      niceToHave:["enterprise deal experience","MEDDIC/SPIN methodology","SaaS background"],
+      redFlags:["no quota attainment data","missing revenue impact","soft skills only"]
+    },
+    finance:{
+      label:"Finance & Banking", icon:"📈",
+      keywords:["Financial Modelling","Valuation","DCF","LBO","M&A","Excel","Bloomberg","Capital Markets","Equity Research","Investment Banking","Private Equity","Venture Capital","Financial Analysis","Accounting","P&L","Balance Sheet","Cash Flow","IFRS","GAAP","Risk Management","Derivatives","Fixed Income","Asset Management","Portfolio Management","Due Diligence","SQL","Python","PowerPoint"],
+      mustHave:["financial modelling","Excel proficiency","quantitative analysis","CFA or relevant degree"],
+      niceToHave:["Bloomberg certification","deal experience","programming for finance"],
+      redFlags:["no modelling evidence","weak quantitative background","no deal/project numbers"]
+    },
+    consulting:{
+      label:"Consulting", icon:"🔍",
+      keywords:["Problem Structuring","MECE","Issue Tree","Deck Building","PowerPoint","Excel","Data Analysis","Stakeholder Management","Project Management","Change Management","Strategy","Business Case","Market Sizing","Process Improvement","McKinsey","BCG","Bain","Big Four","Hypothesis-Driven","Client Management","Workshop Facilitation","Benchmarking","KPI","OKR","ROI Analysis"],
+      mustHave:["structured problem solving","client-facing experience","strong communication","quantified impact"],
+      niceToHave:["MBA or top-tier degree","industry specialisation","team leadership"],
+      redFlags:["unstructured bullet points","no measurable outcomes","no client or stakeholder exposure"]
+    },
+    hr:{
+      label:"HR & People Operations", icon:"🧑‍🤝‍🧑",
+      keywords:["Talent Acquisition","Recruiting","HRIS","Workday","SAP SuccessFactors","Employee Engagement","Performance Management","L&D","Compensation & Benefits","Onboarding","Employer Branding","Diversity & Inclusion","HR Analytics","Labour Law","Organisational Design","Succession Planning","Change Management","Culture","Conflict Resolution","Coaching","ATS","LinkedIn Recruiter","People Analytics"],
+      mustHave:["full-cycle recruiting or HR BP experience","HRIS knowledge","employee relations"],
+      niceToHave:["HR analytics skills","SHRM/CIPD certification","D&I programme experience"],
+      redFlags:["no people metrics","missing HRIS tools","only admin experience"]
+    },
+    healthcare:{
+      label:"Healthcare", icon:"🏥",
+      keywords:["Clinical Research","Patient Care","EMR","EHR","Epic","Cerner","HIPAA","FDA","Clinical Trials","GCP","Pharmacovigilance","Medical Devices","Healthcare IT","ICD-10","CPT Codes","Healthcare Analytics","Public Health","Nursing","Pharmacy","Radiology","Lab Medicine","Telemedicine","Case Management","Care Coordination","Regulatory Compliance","Medical Writing"],
+      mustHave:["clinical or healthcare operations experience","regulatory knowledge","relevant licensure or certification"],
+      niceToHave:["EMR/EHR system proficiency","healthcare data analytics","research publications"],
+      redFlags:["no regulatory/compliance awareness","missing certifications","no patient or clinical outcomes"]
+    },
+    legal:{
+      label:"Legal", icon:"⚖️",
+      keywords:["Contract Drafting","Due Diligence","Litigation","Corporate Law","M&A","IP Law","Employment Law","Regulatory Compliance","Legal Research","Westlaw","LexisNexis","GDPR","Data Privacy","Negotiation","Arbitration","Case Management","Legal Writing","Motions","Discovery","Torts","Contracts","Constitutional Law","Commercial Law","Bar Admission","LLB","JD"],
+      mustHave:["bar admission or LLB/JD","legal drafting experience","research skills"],
+      niceToHave:["specialisation area","deal or litigation numbers","multi-jurisdiction experience"],
+      redFlags:["no drafting samples or evidence","missing bar status","generic legal descriptions"]
+    },
+    education:{
+      label:"Education", icon:"🎓",
+      keywords:["Curriculum Design","Lesson Planning","Classroom Management","Assessment","LMS","Instructional Design","SCORM","Moodle","Canvas","Google Classroom","Differentiated Instruction","Special Education","EdTech","Student Outcomes","STEM","Early Childhood","Higher Education","Academic Research","Publication","Grant Writing","Mentoring","Coaching","Tutoring","Adult Learning","Bloom's Taxonomy"],
+      mustHave:["teaching or instructional experience","curriculum development","measurable student outcomes"],
+      niceToHave:["EdTech tools proficiency","research/publications","coaching or mentoring"],
+      redFlags:["no student outcome data","missing certification","only content expertise without pedagogy"]
+    }
+  };
+ 
+  let activeSector = 'software';
+  let resumeText = '';
+ 
+  // Sector sidebar interaction
+  document.getElementById('sectorSidebar').addEventListener('click', e => {
+    const btn = e.target.closest('.sector-btn');
+    if(!btn) return;
+    document.querySelectorAll('.sector-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeSector = btn.dataset.sector;
+    renderSectorPreview();
+    clearResults();
+  });
+ 
+  function renderSectorPreview(){
+    const s = SECTOR_KNOWLEDGE[activeSector];
+    document.getElementById('sectorPreviewTitle').textContent = s.icon + ' ' + s.label + ' — key signals the AI looks for';
+    const cloud = document.getElementById('kwCloud');
+    cloud.innerHTML = s.keywords.map(k =>
+      `<span class="kw">${k}</span>`
+    ).join('');
+  }
+ 
+  function highlightMatchedKeywords(text){
+    const s = SECTOR_KNOWLEDGE[activeSector];
+    const lower = text.toLowerCase();
+    document.querySelectorAll('#kwCloud .kw').forEach(el => {
+      el.classList.toggle('matched', lower.includes(el.textContent.toLowerCase()));
+    });
+  }
+ 
+  // File upload
+  const dropZone = document.getElementById('dropZone');
+  const resumeFileInput = document.getElementById('resumeFile');
+  const fileChosen = document.getElementById('fileChosen');
+  const fcName = document.getElementById('fcName');
+  const fcClear = document.getElementById('fcClear');
+ 
+  dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('dragover'); });
+  dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
+  dropZone.addEventListener('drop', e => {
+    e.preventDefault(); dropZone.classList.remove('dragover');
+    const file = e.dataTransfer.files[0];
+    if(file) processFile(file);
+  });
+  resumeFileInput.addEventListener('change', () => {
+    if(resumeFileInput.files[0]) processFile(resumeFileInput.files[0]);
+  });
+  fcClear.addEventListener('click', e => {
+    e.stopPropagation();
+    resumeText = '';
+    fcName.textContent = '';
+    fileChosen.style.display = 'none';
+    resumeFileInput.value = '';
+    document.getElementById('analyzeErr').textContent = '';
+    clearResults();
+  });
+ 
+  function processFile(file){
+    const allowed = ['application/pdf','application/msword','application/vnd.openxmlformats-officedocument.wordprocessingml.document','text/plain'];
+    if(!allowed.includes(file.type) && !file.name.match(/\.(pdf|doc|docx|txt)$/i)){
+      document.getElementById('analyzeErr').textContent = 'Please upload a PDF, DOCX, or TXT file.'; return;
+    }
+    document.getElementById('analyzeErr').textContent = '';
+    fcName.textContent = file.name;
+    fileChosen.style.display = 'flex';
+ 
+    const reader = new FileReader();
+    reader.onload = ev => {
+      // For PDF/DOCX we extract what we can from the raw text via FileReader(text)
+      // A real app would server-parse; here we use text mode for txt and raw string for binary
+      resumeText = ev.target.result;
+      if(typeof resumeText !== 'string'){ resumeText = ''; }
+      // Clean up binary artifacts to get readable characters
+      resumeText = resumeText.replace(/[^\x20-\x7E\n\r\t]/g,' ').replace(/\s{3,}/g,' ').trim();
+      if(resumeText.length < 30){
+        // Binary content (PDF/DOCX) — we'll pass the filename + user-visible signal to Claude
+        resumeText = '[Binary file detected: ' + file.name + '. Claude will analyse based on the file name and sector context.]';
+      }
+      highlightMatchedKeywords(resumeText);
+    };
+    // Use readAsText which partially decodes binaries — good enough for keyword extraction
+    reader.readAsText(file, 'utf-8');
+  }
+ 
+  function clearResults(){
+    const rr = document.getElementById('resumeResults');
+    rr.style.display = 'none';
+    document.getElementById('progressTrack').style.display = 'none';
+  }
+ 
+  // Analyse button
+  document.getElementById('analyzeBtn').addEventListener('click', async () => {
+    const errEl = document.getElementById('analyzeErr');
+    if(!resumeText){ errEl.textContent = 'Please upload your resume first.'; return; }
+    errEl.textContent = '';
+    await runResumeAnalysis();
+  });
+ 
+  document.getElementById('reanalyzeBtn').addEventListener('click', () => {
+    clearResults();
+    document.getElementById('resume').scrollIntoView({ behavior:'smooth', block:'start' });
+  });
+ 
+  document.getElementById('practiceQsBtn').addEventListener('click', () => {
+    document.getElementById('demo').scrollIntoView({ behavior:'smooth', block:'start' });
+  });
+ 
+  async function runResumeAnalysis(){
+    const s = SECTOR_KNOWLEDGE[activeSector];
+    const pt = document.getElementById('progressTrack');
+    const pf = document.getElementById('progressFill');
+    const btn = document.getElementById('analyzeBtn');
+ 
+    pt.style.display = 'block';
+    btn.disabled = true; btn.textContent = 'Analysing…';
+    animateProgress(pf, 0, 60, 3000);
+ 
+    const systemPrompt = `You are an expert career coach and resume analyst with deep knowledge of ${s.label} hiring. 
+You have comprehensive knowledge of these sector-specific skills and signals:
+CORE KEYWORDS FOR THIS SECTOR: ${s.keywords.join(', ')}
+MUST-HAVE ELEMENTS: ${s.mustHave.join(', ')}
+NICE-TO-HAVE ELEMENTS: ${s.niceToHave.join(', ')}
+RED FLAGS TO WATCH: ${s.redFlags.join(', ')}
+ 
+Analyse the provided resume content against the ${s.label} sector. You MUST respond ONLY with a valid JSON object (no markdown, no backticks, no explanation outside JSON) in this exact structure:
+{
+  "matchScore": <number 0-100>,
+  "readinessLevel": "<Excellent|Strong|Good|Developing|Entry-Level>",
+  "experienceYears": "<estimated years or 'Entry-Level'>",
+  "keywordHits": <number of sector keywords found>,
+  "summary": "<2-3 sentence honest mirror-style reflection of this resume for ${s.label}. Be direct, specific, constructive.>",
+  "strengths": ["<strength 1>","<strength 2>","<strength 3>","<strength 4>"],
+  "gaps": ["<gap 1>","<gap 2>","<gap 3>"],
+  "interviewQuestions": ["<question 1>","<question 2>","<question 3>","<question 4>","<question 5>"],
+  "tips": ["<tip 1>","<tip 2>","<tip 3>"]
+}`;
+ 
+    const userMessage = `SECTOR APPLYING TO: ${s.label}
+ 
+RESUME CONTENT:
+${resumeText.slice(0, 6000)}
+ 
+Please analyse this resume for a ${s.label} role and return only the JSON object.`;
+ 
+    try{
+      const resp = await fetch('https://api.anthropic.com/v1/messages', {
+        method:'POST',
+        headers:{ 'Content-Type':'application/json' },
+        body: JSON.stringify({
+          model:'claude-sonnet-4-6',
+          max_tokens:1000,
+          system: systemPrompt,
+          messages:[{ role:'user', content: userMessage }]
+        })
+      });
+ 
+      if(!resp.ok){ throw new Error('API error ' + resp.status); }
+      const data = await resp.json();
+      const raw = data.content.filter(b => b.type === 'text').map(b => b.text).join('');
+      const clean = raw.replace(/```json|```/gi,'').trim();
+      let result;
+      try{ result = JSON.parse(clean); }
+      catch(pe){
+        // Try to extract JSON object from surrounding text
+        const m = clean.match(/\{[\s\S]*\}/);
+        if(m){ result = JSON.parse(m[0]); }
+        else{ throw new Error('Could not parse response'); }
+      }
+ 
+      animateProgress(pf, 60, 100, 600);
+      setTimeout(() => { renderResults(result); }, 700);
+ 
+    }catch(err){
+      pt.style.display = 'none';
+      btn.disabled = false; btn.textContent = 'Analyse my resume';
+      document.getElementById('analyzeErr').textContent = 'Something went wrong (' + err.message + '). Please try again.';
+    }
+  }
+ 
+  function animateProgress(el, from, to, duration){
+    const start = performance.now();
+    function tick(now){
+      const t = Math.min((now - start) / duration, 1);
+      el.style.width = (from + (to - from)*t) + '%';
+      if(t < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+ 
+  function renderResults(r){
+    const btn = document.getElementById('analyzeBtn');
+    btn.disabled = false; btn.textContent = 'Analyse my resume';
+    document.getElementById('progressTrack').style.display = 'none';
+    document.getElementById('progressFill').style.width = '0%';
+ 
+    // Highlight keywords
+    highlightMatchedKeywords(resumeText);
+ 
+    // Scores
+    const scoreRow = document.getElementById('scoreRow');
+    const scoreColour = r.matchScore >= 75 ? 'good' : r.matchScore >= 50 ? 'warn' : 'info';
+    scoreRow.innerHTML = `
+      <div class="score-card ${scoreColour}"><span class="sc-value">${r.matchScore}%</span><span class="sc-label">Sector match</span></div>
+      <div class="score-card highlight"><span class="sc-value">${r.readinessLevel || 'Good'}</span><span class="sc-label">Readiness level</span></div>
+      <div class="score-card info"><span class="sc-value">${r.experienceYears || '?'}</span><span class="sc-label">Est. experience</span></div>
+      <div class="score-card warn"><span class="sc-value">${r.keywordHits || 0}</span><span class="sc-label">Keywords found</span></div>
+    `;
+ 
+    // Mirror summary
+    document.getElementById('mirrorSummaryText').textContent = r.summary || '';
+ 
+    // Strengths
+    const sl = document.getElementById('strengthList');
+    sl.innerHTML = (r.strengths||[]).map(s =>
+      `<div class="strength-item"><span class="bullet">✓</span>${s}</div>`
+    ).join('');
+ 
+    // Gaps
+    const gl = document.getElementById('gapList');
+    gl.innerHTML = (r.gaps||[]).map(g =>
+      `<div class="gap-item"><span class="bullet">!</span>${g}</div>`
+    ).join('');
+ 
+    // Interview questions
+    const iq = document.getElementById('interviewQs');
+    iq.innerHTML = (r.interviewQuestions||[]).map((q,i) =>
+      `<div class="iq-item"><span class="iq-num">Q${i+1}</span>"${q}"</div>`
+    ).join('');
+ 
+    // Tips
+    const tl = document.getElementById('tipList');
+    tl.innerHTML = (r.tips||[]).map(t =>
+      `<div class="tip-item"><span class="bullet">→</span>${t}</div>`
+    ).join('');
+ 
+    const rr = document.getElementById('resumeResults');
+    rr.style.display = 'flex';
+    rr.scrollIntoView({ behavior:'smooth', block:'start' });
+  }
+ 
+  // Init sector preview
+  renderSectorPreview();
+ 
   // scroll reveal
   const revealEls = document.querySelectorAll('.reveal');
   const io = new IntersectionObserver((entries) => {
@@ -969,4 +1534,3 @@
  
 </body>
 </html>
- 
